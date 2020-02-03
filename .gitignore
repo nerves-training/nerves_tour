@@ -1,0 +1,2 @@
+# Ignore lock files to avoid merge conflicts
+mix.lock
