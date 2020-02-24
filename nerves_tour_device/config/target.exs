@@ -69,6 +69,15 @@ config :mdns_lite,
     }
   ]
 
+config :nerves_tour_ui, :viewport, %{
+  name: :main_viewport,
+  size: {128, 64},
+  default_scene: {NervesTourUI.Scene.Home, nil},
+  drivers: [%{module: ScenicDriverOLEDBonnet}]
+}
+
+config :nerves_tour_ui, low_level: NervesTourDevice.LowLevel
+
 # Import target specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 # Uncomment to use target specific configurations

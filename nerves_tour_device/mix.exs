@@ -38,6 +38,8 @@ defmodule NervesTourDevice.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:nerves_tour_ui, path: "../nerves_tour_ui"},
+
       # Dependencies for all targets
       {:nerves, "~> 1.5.0", runtime: false},
       {:shoehorn, "~> 0.6"},
@@ -47,6 +49,9 @@ defmodule NervesTourDevice.MixProject do
       # Dependencies for all targets except :host
       {:nerves_runtime, "~> 0.6", targets: @all_targets},
       {:nerves_pack, "~> 0.2", targets: @all_targets},
+      {:scenic_driver_oled_bonnet,
+       github: "nerves-training/scenic_driver_oled_bonnet", targets: @all_targets},
+      {:circuits_gpio, "~> 0.4.5", targets: @all_targets},
 
       # Dependencies for specific targets
       {:nerves_system_rpi0, "~> 1.10", runtime: false, targets: :rpi0},
