@@ -5,7 +5,7 @@ use Mix.Config
 # Configure the main viewport for the Scenic application
 config :nerves_tour_ui, :viewport, %{
   name: :main_viewport,
-  size: {700, 600},
+  size: {128, 64},
   default_scene: {NervesTourUI.Scene.Home, nil},
   drivers: [
     %{
