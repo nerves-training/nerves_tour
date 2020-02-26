@@ -24,7 +24,8 @@ defmodule NervesTourUI.MixProject do
   defp deps do
     [
       {:scenic, "~> 0.10"},
-      {:scenic_driver_glfw, "~> 0.10", targets: :host}
+      {:scenic_driver_glfw, "~> 0.10", targets: :host},
+      {:scenic_font_press_start_2p, github: "nerves-training/scenic_font_press_start_2p"}
     ]
   end
 end

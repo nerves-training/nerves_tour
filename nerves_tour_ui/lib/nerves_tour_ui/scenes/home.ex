@@ -16,13 +16,15 @@ defmodule NervesTourUI.Scene.Home do
     mix scenic.new.example
   """
 
-  @text_size 24
+  @text_size 8
 
   # ============================================================================
   # setup
 
   # --------------------------------------------------------
   def init(_, opts) do
+    ScenicFontPressStart2p.load()
+
     # get the width and height of the viewport. This is to demonstrate creating
     # a transparent full-screen rectangle to catch user input
     {:ok, %ViewPort.Status{size: {width, height}}} = ViewPort.info(opts[:viewport])
@@ -32,7 +34,7 @@ defmodule NervesTourUI.Scene.Home do
     glfw_ver = Application.spec(:scenic, :vsn) |> to_string()
 
     graph =
-      Graph.build(font: :roboto, font_size: @text_size)
+      Graph.build(font: ScenicFontPressStart2p.hash(), font_size: @text_size)
       |> add_specs_to_graph([
         text_spec("scenic: v" <> scenic_ver, translate: {20, 40}),
         text_spec("glfw: v" <> glfw_ver, translate: {20, 40 + @text_size}),
