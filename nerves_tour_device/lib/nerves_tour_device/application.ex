@@ -8,7 +8,11 @@ defmodule NervesTourDevice.Application do
   def start(_type, _args) do
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
+
+    start_erlang_distribution()
+
     opts = [strategy: :one_for_one, name: NervesTourDevice.Supervisor]
+
     children =
       [
         # Children for all targets
@@ -38,5 +42,16 @@ defmodule NervesTourDevice.Application do
 
   def target() do
     Application.get_env(:nerves_tour_device, :target)
+  end
+
+  # Connect with:
+  # iex --name me@0.0.0.0 --cookie secret_cookie --remsh nerves@nerves-1234.local
+  defp start_erlang_distribution() do
+    {:ok, hostname} = :inet.gethostname()
+    node_name = :"nerves@#{hostname}.local"
+
+    _ = System.cmd("epmd", ["-daemon"])
+    _ = Node.start(node_name)
+    Node.set_cookie(:secret_cookie)
   end
 end
