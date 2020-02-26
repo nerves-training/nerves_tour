@@ -3,44 +3,17 @@ defmodule NervesTourUI.Scene.Home do
   require Logger
 
   alias Scenic.Graph
-  alias Scenic.ViewPort
-
   import Scenic.Primitives
-  # import Scenic.Components
 
-  @note """
-    This is a very simple starter application.
+  @graph Graph.build(font: ScenicFontPressStart2p.hash(), font_size: 8)
+         |> text("GPIO: ...", translate: {5, 20}, id: :gpio)
+         |> text("Last key: ...", translate: {5, 30}, id: :last_key)
+         |> text("Hostname", translate: {5, 60}, id: :hostname)
 
-    If you want a more full-on example, please start from:
-
-    mix scenic.new.example
-  """
-
-  @text_size 8
-
-  # ============================================================================
-  # setup
-
-  # --------------------------------------------------------
-  def init(_, opts) do
+  def init(_, _opts) do
     ScenicFontPressStart2p.load()
 
-    # get the width and height of the viewport. This is to demonstrate creating
-    # a transparent full-screen rectangle to catch user input
-    {:ok, %ViewPort.Status{size: {width, height}}} = ViewPort.info(opts[:viewport])
-
-    # show the version of scenic and the glfw driver
-    scenic_ver = Application.spec(:scenic, :vsn) |> to_string()
-    glfw_ver = Application.spec(:scenic, :vsn) |> to_string()
-
-    graph =
-      Graph.build(font: ScenicFontPressStart2p.hash(), font_size: @text_size)
-      |> add_specs_to_graph([
-        text_spec("scenic: v" <> scenic_ver, translate: {20, 40}),
-        text_spec("glfw: v" <> glfw_ver, translate: {20, 40 + @text_size}),
-        text_spec(@note, translate: {20, 120}),
-        rect_spec({width, height})
-      ])
+    graph = @graph
 
     {:ok, graph, push: graph}
   end
