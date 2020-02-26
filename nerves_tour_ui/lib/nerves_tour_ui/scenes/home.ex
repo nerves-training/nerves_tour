@@ -19,6 +19,13 @@ defmodule NervesTourUI.Scene.Home do
     {:ok, graph, push: graph}
   end
 
+  def handle_input({:key, {key, :press, 0}}, _context, graph) do
+    string = "Last key: #{key}"
+    new_graph = graph |> Graph.modify(:last_key, &text(&1, string))
+
+    {:noreply, new_graph, push: new_graph}
+  end
+
   def handle_input(event, _context, state) do
     Logger.info("Received event: #{inspect(event)}")
     {:noreply, state}
