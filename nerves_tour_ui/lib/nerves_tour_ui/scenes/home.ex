@@ -13,7 +13,8 @@ defmodule NervesTourUI.Scene.Home do
   def init(_, _opts) do
     ScenicFontPressStart2p.load()
 
-    graph = @graph
+    {:ok, hostname} = :inet.gethostname()
+    graph = @graph |> Graph.modify(:hostname, &text(&1, to_string(hostname)))
 
     {:ok, graph, push: graph}
   end
