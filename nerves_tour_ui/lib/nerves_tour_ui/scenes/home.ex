@@ -16,6 +16,8 @@ defmodule NervesTourUI.Scene.Home do
     {:ok, hostname} = :inet.gethostname()
     graph = @graph |> Graph.modify(:hostname, &text(&1, to_string(hostname)))
 
+    _ = :timer.send_interval(500, :tick)
+
     {:ok, graph, push: graph}
   end
 
@@ -29,5 +31,14 @@ defmodule NervesTourUI.Scene.Home do
   def handle_input(event, _context, state) do
     Logger.info("Received event: #{inspect(event)}")
     {:noreply, state}
+  end
+
+  def handle_info(:tick, graph) do
+    low_level = Application.get_env(:nerves_tour_ui, :low_level, NervesTourUI.MockLowLevel)
+    string = "GPIOs: #{low_level.get_gpios()}"
+
+    new_graph = graph |> Graph.modify(:gpio, &text(&1, string))
+
+    {:noreply, new_graph, push: new_graph}
   end
 end
