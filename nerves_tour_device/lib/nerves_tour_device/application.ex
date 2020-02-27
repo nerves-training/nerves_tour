@@ -36,7 +36,7 @@ defmodule NervesTourDevice.Application do
     [
       # Children for all targets except host
       # Starts a worker by calling: NervesTourDevice.Worker.start_link(arg)
-      # {NervesTourDevice.Worker, arg},
+      NervesTourDevice.LowLevel
     ]
   end
 
